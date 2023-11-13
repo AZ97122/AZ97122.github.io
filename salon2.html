@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Nside - Salon Chaleur Douce</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src=”https://maxcdn.bootstrapcdn.com /bootstrap/3.4.0/js/bootstrap.min.js”> </script>
+
+
+        <!-- SCRIPT PANIER-->
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+        <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-6bce046e7128ddf9391ccf7acbecbf7ce0cbd7b6defbeb2e217a867f51485d25.js"></script>
+        <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-550eae0ce567d3d9182e33cee4e187761056020161aa87e3ef74dc467972c555.js"></script>
+        <script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+
+         <!-- Animation JS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="#page-top"><img src="assets/img/N-2.png" alt="logo" style="width: 75px; height: auto; border-radius: 50%;" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="produit.html">Produits</a></li>
+                        <li class="nav-item"><a class="nav-link" href="produit.html">Inspirations</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item">
+                        <div class="dropdown">
+                        <a class="nav-link dropbtn" onclick="myFunction()">Inscription</a></li>
+                        <div id="myDropdown" class="dropdown-content animate__animated animate__fadeInDown wow">
+                            <button class="close btnFermer" onclick="myFunction()">X</button>
+                        <form class="px-4 py-4">
+                            <div class="form-group">
+                              <label for="exampleDropdownFormEmail1">Adresse email</label>
+                              <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleDropdownFormPassword1">Mot de passe</label>
+                              <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-check">
+                              <input type="checkbox" class="form-check-input" id="dropdownCheck">
+                              <label class="form-check-label" for="dropdownCheck">
+                                Se souvenir de moi
+                              </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Se connecter</button>
+                          </form>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item" href="#">Nouveaux ici ? S'inscrire.</a>
+                          <a class="dropdown-item" href="#">Mot de passe oublier ?</a>
+                        </div>
+                        <li>
+                          <button type="button" class="btn btn-light" data-toggle="modal" data-target="#cart">Panier (<span class="total-count"></span>)</button></li>
+
+                        </div>
+                        </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Cathégorie - Salon </div>
+                <div class="masthead-heading text-uppercase">Produits</div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="textCentre text-uppercase">
+            <p> Salon Chaleur Douce </p>
+            </div>
+            <div class="MainPhoto">
+                <div class="row imGcentre">
+                    <img src="assets/img/portfolio/salon2/Salon2.png" class="img-fluid wow animate__animated animate__fadeInLeft">
+                </div>
+            </div>
+            <h2> Les éléments du Salon :  </h2>
+            <div class="Prods">
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/etagereMuralSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Étagère mural noir et verre, 70cm x 30cm x 25cm. </p></div>
+                    <div class="col-lg-5"><div class="prix">64.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Étagère mural noir/verre" data-price="64.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/etagereSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Étagère à trois étages noir et verre, 70cm x 30cm x 80cm.</p></div>
+                    <div class="col-lg-5"><div class="prix">84.99€</div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Étagère trois étages" data-price="84.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/luminaire2Salon2.png" class="imGcentre"></div>
+                    <div class="col-lg-4 YAY"><p>Lumiaire noir en LED.</p></div>
+                    <div class="col-lg-5"><div class="prix">47.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Lumiaire noir LED" data-price="47.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/luminaireSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Luminaire rond noir. </p></div>
+                    <div class="col-lg-5"><div class="prix">26.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Luminaire rond noir" data-price="26.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/carrelageSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Plan de travail gris en marbre, 200cm x 90cm.</p></div>
+                    <div class="col-lg-4"><div class="prix pirxbarre">78.99€/m2 </div><div class="prixnv animate__animated animate__fadeInRight wow">54.99/m2</div></div>
+                    <div class="bkf animate__animated animate__heartBeat wow col-lg-1"><img src="assets/img/logos/bf.png" style="width:80%;"></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Plan de travail gris marbre" data-price="54.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                    
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/tapisSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Tapis en poils synthétique gris, 200cm x 200cm. </p></div>
+                    <div class="col-lg-5"><div class="prix">86.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Tapis poils synthétique gris" data-price="86.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/tringleàrideauxSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Tringle à rideaux noir, 180cm à 200cm.</p></div>
+                    <div class="col-lg-5"><div class="prix">24.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Tringle noir" data-price="24.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/rideauxSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Rideaux occultant blanc.</p></div>
+                    <div class="col-lg-5"><div class="prix">34.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Rideaux occultant blanc" data-price="34.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/evierSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Évier en céramique noir, 60cm x 45cm x 20cm.</p></div>
+                    <div class="col-lg-5"><div class="prix">57.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Évier céramique noir" data-price="57.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/mitigeurSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Robinet noir.</p></div>
+                    <div class="col-lg-5"><div class="prix">22.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Robinet noir" data-price="22.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+                <div class="row PersoProd">
+                    <div class="col-lg-2"><img src="assets/img/portfolio/salon2/hotSalon2.png"></div>
+                    <div class="col-lg-4 YAY"><p>Hotte suspendu en Inox.</p></div>
+                    <div class="col-lg-5"><div class="prix">124.99€ </div></div>
+                    <div class="col-lg-1" style="width:5.5%;">
+                    <a href="#" data-name="Hotte suspendu inox" data-price="124.99" class="add-to-cart">
+                    <img src="assets/img/logos/panier.svg">
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- MODAL CART -->
+
+        <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Panier</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="show-cart table">
+          
+        </table>
+        <div>Prix total: <span class="total-cart"></span>€</div>
+      </div>
+      <div class="modal-footer">
+        <button class="clear-cart btn btn-danger panier">Vider</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary">Commander</button>
+      </div>
+    </div>
+  </div>
+</div> 
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+              <script>
+              new WOW().init();
+              </script>
+
+
+        <!-- Footer-->
+        <div class="margintopFotter">
+        <footer class="footer py-4">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-4 text-lg-start">Copyright &copy; Nside 2022</div>
+                    <div class="col-lg-4 my-3 my-lg-0">
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <div class="col-lg-4 text-lg-end">
+                        <a class="link-dark text-decoration-none me-3" href="#!">Privacy Policy</a>
+                        <a class="link-dark text-decoration-none" href="#!">Terms of Use</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </body>
+    </html>

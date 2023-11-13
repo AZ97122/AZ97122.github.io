@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang=fr-FR>
+    <head>
+        <meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+
+
+<title>Comment réaliser un panier 100% JavaScript – Buzut</title>
+<meta name=description content="Une boutique de e-commerce nécessite la plupart du temps un panier. Nous allons voir dans cet article comment créer un panier 100% Javascript.">
+
+
+<link rel=stylesheet href=/styles/build-1.1.2.min.css>
+
+
+<link rel=stylesheet href=/styles/atom-one-dark.css>
+
+<link href=/img/favicon.png rel="shortcut icon">
+
+
+    <link rel=alternate href=/atom.xml title=Buzut type=application/atom+xml>
+
+
+<script defer src=/scripts/highlight.js></script>
+<script defer type=module src=/scripts/build.esm-1.1.2.min.js></script>
+<script defer nomodule src=/scripts/build.iife-1.1.2.min.js></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4KQHJTRXES"></script>
+<script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-4KQHJTRXES")</script>
+
+    </head>
+
+    <body>
+        <header class=main-header>
+    <nav class=nav>
+        <a href=/ alt="Buzut logo">
+            <img src=https://d33wubrfki0l68.cloudfront.net/f87f6e0bd31d5f46d08cde68fbb8ee51bb3a9e91/969de/img/logo.png class=logo>
+        </a>
+
+        <form id=searchform>
+            
+                <a href=/atom.xml class=rss></a>
+            
+
+            <input type=search name=s class="searchbox form-control" placeholder=Rechercher… autocomplete=off>
+            <ul class=results></ul>
+
+            <ul class=pages>
+                
+                    
+                        <li><a href=/ >Home</a></li>
+                    
+                
+                    
+                        <li><a href=/cours/ >Formations</a></li>
+                    
+                
+                    
+                        <li><a href=/a-propos/ >À propos</a></li>
+                    
+                
+            </ul>
+        </form>
+    </nav>
+
+    <div class=headerdeco></div>
+
+    
+    <nav class=headertags>
+        
+            <ul>
+                
+                    <li><a class=active href=/tag/Linux/ title="Articles sur Linux"><img src=https://d33wubrfki0l68.cloudfront.net/3bc152f41d99b3cb7978c2af69bd87b448198f86/41809/img/linux.svg alt="Articles sur Linux" width=30 height=30></a></li>
+                
+                    <li><a class=active href=/tag/HTML-CSS/ title="Articles sur l'HTML/CSS"><img src=https://d33wubrfki0l68.cloudfront.net/6d3c0e773b368735516ee2148442ce38c81b5eb5/8d734/img/html5.svg alt="Articles sur l'HTML/CSS" width=30 height=30></a></li>
+                
+                    <li><a class=active href=/tag/JavaScript/ title="Articles sur le JavaScript"><img src=https://d33wubrfki0l68.cloudfront.net/c1bc33a0e2c35b62c8b7cbf5a9bc1e102fd7af10/933fd/img/javascript.svg alt="Articles sur le JavaScript" width=30 height=30></a></li>
+                
+                    <li><a class=active href=/tag/Outils/ title="Articles sur les outils de développement"><img src=https://d33wubrfki0l68.cloudfront.net/7dce5d524b46404cd6eb537052bdfb7735bb7e79/9fe00/img/tools.svg alt="Articles sur les outils de développement" width=30 height=30></a></li>
+                
+            </ul>
+        
+    </nav>
+    
+</header>
+
+        <main>
+    <article class=post>
+        <header class="content-header single">
+            
+<time class=pubdate datetime=2015-02-21>
+    21 février 2015
+</time>
+
+            <p class=comments-infos data-slug=/realiser-un-panier-en-javascript/ data-url=true>
+    <a href=/realiser-un-panier-en-javascript/#comments-section>Laisser un commentaire</a>
+</p>
+
+
+            <h1>
+                Réaliser un panier 100% JavaScript
+            </h1>
+
+            <div class=categories>
+                
+                    <ul class=tag-list itemprop=keywords><li class=tag-list-item><a class=tag-list-link href=/tag/JavaScript/ rel=tag>JavaScript</a></ul>
+                
+            </div>
+        </header>
+
+        <p>Une boutique de e-commerce nécessite la plupart du temps un panier. De nombreuses solutions peuvent répondre à ce besoin. Il est possible de mettre en place un panier côté serveur, d’adjoindre un plugin au framwork ou <abbr title="Content Management System">CMS</abbr> utilisé pour le site etc. Cependant, nous allons voir comment programmer un panier 100% en JavaScript sans utiliser aucun plugin ni code côté serveur.</p>
+        
+
+    <nav class=toc>
+        <p>Au programme</p>
+        <ol class=toc><li class="toc-item toc-level-2"><a class=toc-link href=#Le-HTML-de-base><span class=toc-text>Le HTML de base</span></a><li class="toc-item toc-level-2"><a class=toc-link href=#Les-fonctions-de-bases><span class=toc-text>Les fonctions de bases</span></a><li class="toc-item toc-level-2"><a class=toc-link href=#Recuperer-les-articles-et-peupler-le-widget><span class=toc-text>Récupérer les articles et peupler le widget</span></a><li class="toc-item toc-level-2"><a class=toc-link href=#Ajout-d%E2%80%99un-article-au-panier><span class=toc-text>Ajout d’un article au panier</span></a><li class="toc-item toc-level-2"><a class=toc-link href=#Rendu-de-la-page-panier><span class=toc-text>Rendu de la page panier</span></a><li class="toc-item toc-level-2"><a class=toc-link href=#Calcul-des-frais-de-port><span class=toc-text>Calcul des frais de port</span></a></ol>
+    </nav>
+
+
+        <p>La panier côté client présente certains avantages. Il ne nécessite pas le rechargement de la page à chaque ajout d’article et il est indépendant du code utilisé pour bâtir le site. Ainsi, on l’adjoindra sans problème à des CMS comme Wordpress ou Joomla sans devoir modifier le code du CMS ou installer de plugin.</p>
+<p>Il existe bien entendu des <a title="SimpleCartjs, a free and open-source JavaScript shopping cart" href=http://www.simplecartjs.org/ >librairies JavaScript open source</a> qui permettent d’avoir un panier clef en main. Néanmoins, développer sa solution soit-même donne l’assurance d’obtenir quelque chose qui correspond à 100% à ses besoins tout en restant léger.</p>
+<p>J’ai à la base créé ce panier pour le site <a title="spécialiste de la magnétothérapie et de la purification d'eau" href=https://www.alphapole.com>Alphapole</a>, spécialisé dans la magnétothérapie et la purification de l’eau. J’ai conçu le site avec Wordpress, néanmoins, n’étant pas fan des plugins e-commerce du CMS, j’ai opté pour un panier sur-mesure.</p>
+<section class=hint>
+<h1 id=Telechargez-les-fichiers><a href=#Telechargez-les-fichiers class=headerlink title="Téléchargez les fichiers"></a>Téléchargez les fichiers</h1><p>Les besoins du site d’Alphapole ont évolué et ce dernier utilise maintenant WooCommerce. Cependant, vous pouvez <a href=/assets/panier-alphapole.zip>télécharger une archive</a> contenant des fichiers d’exemple fonctionnels.</p>
+</section>
+
+<p>Je voulais éviter les rechargements de page, lesquels nuisent à l’expérience utilisateur – spécialement sur mobile où le réseau peut être lent. Une solution client-side basée sur jQuery semblait alors une bonne idée. En outre, les aimants étant lourds, il était impératif de prendre en compte le poids de la marchandise dans les frais de port. Cet article se basera sur des exemples du site d’Alphapole. Ce dernier repose sur Bootstrap, j’enleverai cependant les classes et éléments HTML de présentation pour plus de clarté. Assez discuté, commençons !</p>
+<h2 id=Le-HTML-de-base><a href=#Le-HTML-de-base class=headerlink title="Le HTML de base"></a>Le HTML de base</h2><p>Le panier se compose de trois parties :</p>
+<ul>
+<li>Les articles : le code formaté de manière à ce qu’on retrouve les informations liées au produit,</li>
+<li>L’icône du panier qui indique au survol les articles qu’il contient,</li>
+<li>La page du panier qui permet de modifier les quantités, de supprimer les articles etc.</li>
+</ul>
+<h3 id=Les-articles><a href=#Les-articles class=headerlink title="Les articles"></a>Les articles</h3><p>Il s’agit simplement d’un bouton permettant l’ajout au panier, et d’un champ <code>select</code> qui propose de sélectionner une quantité allant de 1 à 9. L’exemple ci-dessous est extrait des <a href=https://www.alphapole.com/produit/pastilles-anti-douleurs/ >Pastilles Physiomag</a>.</p>
+<pre><code>&lt;label for=&quot;q&quot;&gt;Quantité: &lt;/label&gt;
+&lt;select id=&quot;qt&quot; name=&quot;q&quot;&gt;
+    &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+    &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+    &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+    &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+    &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;
+    &lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;
+    &lt;option value=&quot;7&quot;&gt;7&lt;/option&gt;
+    &lt;option value=&quot;8&quot;&gt;8&lt;/option&gt;
+    &lt;option value=&quot;9&quot;&gt;9&lt;/option&gt;
+&lt;/select&gt;
+&lt;button type=&quot;button&quot; class=&quot;add-to-cart&quot; data-id=&quot;432&quot; data-name=&quot;Pastilles&quot; data-price=&quot;29,00&quot; data-weight=&quot;97&quot; data-url=&quot;/produit/pastilles-anti-douleurs/&quot;&gt;Ajouter au panier&lt;/button&gt;</code></pre><p>Il n’y a rien de particulier à dire sur le <code>select</code> et son <code>label</code>. Le JavaScript viendra simplement récupérer la valeur de input dont l’<code>id</code> est “qt”. Par ailleurs, la sélection de la quantité n’est proposée que sur les fiches produit individuelles et non sur les pages listant plusieurs produits. Si on veut proposer la quantité sur ces dernières, c’est possible moyennant quelques modifications. Attention, il ne doit pas y avoir deux fois le même <code>id</code> sur une page.</p>
+<p>Le bouton – qui est le code minimal pour que le panier soit fonctionnel – concentre l’essentiel. Toutes les informations liées à l’article sont stockées dans les attributs <a title="Data attributes – 101 balises HTML5 + exemples" href=/2014/12/21/101-balises-html5-exemples/#data-attr><code>data-*</code></a> :</p>
+<ul>
+<li><code>data-id</code> est l’identifiant de l’article. Ainsi, si on ajoute un article déjà présent au panier, on incrémente la quantité au lieu de l’ajouter comme un nouvel article,</li>
+<li><code>data-name</code> concerne, vous vous en doutiez, le nom de l’article,</li>
+<li><code>data-price</code> contient le prix. J’ai fait le choix d’un formatage à la française car je trouvais plus simple à gérer comme ça pour l’affichage,</li>
+<li><code>data-weight</code> contient le poids en grammes du produit, ce poids sera utilisé pour calculer les frais de port,</li>
+<li><code>data-url</code> renseigne l’url de la fiche produit.</li>
+</ul>
+<h3 id=Le-widget-panier><a href=#Le-widget-panier class=headerlink title="Le widget panier"></a>Le widget panier</h3><p>Le code de l’icône ou widget du panier est assez simple :</p>
+<pre><code>&lt;div class=&quot;dropdown&quot;&gt;
+    &lt;div id=&quot;cart&quot;&gt;
+        &lt;p&gt;&lt;span id=&quot;in-cart-items-num&quot;&gt;0&lt;/span&gt; Articles&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;ul id=&quot;cart-dropdown&quot; hidden&gt;
+        &lt;li id=&quot;empty-cart-msg&quot;&gt;&lt;a&gt;Votre panier est vide&lt;/a&gt;&lt;/li&gt;
+        &lt;li class=&quot;go-to-cart hidden&quot;&gt;&lt;a href=&quot;/panier/&quot;&gt;Voir le panier&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre><p>Il s’agit simplement d’une balise <code>p</code> qui indique le nombre d’articles dans le panier. Au survol de celle-ci apparaît une liste <code>ul</code>. La liste possède par défaut un message indiquant que le panier est vide et un lien – en <code>display:hidden</code> grâce à l’attribut HTML5 <code>hidden</code> tant que le panier est vide – permettant d’aller au panier.</p>
+<p>Pour faire apparaître la liste des produits ajoutés lors du survol du widget, on peut utiliser du CSS ou du JavaScript. Dans mon infinie bonté, je vous donnes les deux possibilités :</p>
+<pre><code>/* CSS */
+.dropdown:hover &gt; #cart-dropdown&#123;
+    display: block;
+&#125;
+
+/* JS */
+// comportement du panier au survol pour affichage de son contenu
+var timeout;
+
+$(&#39;#cart&#39;).on(&#123;
+    mouseenter: function() &#123;
+        $(&#39;#cart-dropdown&#39;).show();
+    &#125;,
+    mouseleave: function() &#123;
+        timeout = setTimeout(function() &#123;
+            $(&#39;#cart-dropdown&#39;).hide();
+        &#125;, 200);
+    &#125;
+&#125;);
+
+// laisse le contenu ouvert à son survol
+// le cache quand la souris sort
+$(&#39;#cart-dropdown&#39;).on(&#123;
+    mouseenter: function() &#123;
+        clearTimeout(timeout);
+    &#125;,
+    mouseleave: function() &#123;
+        $(&#39;#cart-dropdown&#39;).hide();
+    &#125;
+&#125;);</code></pre><p>J’aime l’élégance et la simplicité du CSS. La solution JavaScript offre néanmoins beaucoup plus de souplesse. Par exemple, on fixe ici un certain temps entre le moment ou la souris quitte le <code>#cart</code> et où <code>#cart-dropdown</code> disparaît. Ça nous permet de gérer le cas où la liste n’est pas directement accolée au <code>p</code>.</p>
+<h3 id=La-page-panier><a href=#La-page-panier class=headerlink title="La page panier"></a>La page panier</h3><p>La page dédiée au panier présente plus de détails que le widget et ajoute des éléments de contrôle.</p>
+<pre><code>&lt;table class=&quot;table&quot;&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;&lt;th&gt;Article&lt;/th&gt;&lt;th&gt;Prix&lt;/th&gt;&lt;th&gt;Quantité&lt;/th&gt;&lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody id=&quot;cart-tablebody&quot;&gt;&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Sous total : &lt;span class=&quot;subtotal&quot;&gt;&lt;/span&gt;€&lt;/p&gt;
+
+&lt;button id=&quot;confirm-command&quot;&gt;Passer la commande&lt;/button&gt;</code></pre><p>Un tableau regroupe les en-têtes de nos différentes colonnes, le corps du tableau et le sous total, lesquels seront peuplés par le JS. Enfin, nous trouvons aussi un bouton permettant de confirmer la commande et de passer à la phase de paiement.</p>
+<h2 id=Les-fonctions-de-bases><a href=#Les-fonctions-de-bases class=headerlink title="Les fonctions de bases"></a>Les fonctions de bases</h2><p>Nous avons besoin de stocker certaines informations afin que notre panier ne se vide pas à chaque changement de page ou lorsque l’internaute quitte le site puis y revient plus tard. On a le choix entre l’api localStorage et les classiques cookies. Nous allons opter pour les cookies car ils sont mieux supportés que le localStorage. Le plus gros problème de ce dernier survient dans Safari en mode navigation privé : le navigateur le rend tout bonnement indisponible, comme s’il n’était pas supporté. En outre, les cookies permettent de spécifier une date de péremption. Ainsi, quelques jours après sa visite, si un internaute n’a toujours pas passé commande, on peut estimer que son panier n’est plus valable.</p>
+<p>Les fonctions permettant de gérer les cookies en JavaScript ne sont pas ultra ergonomiques. Nous allons créer nos propres fonctions pour enregistrer et récupérer facilement des éléments de notre panier.</p>
+<h3 id=setCookie><a href=#setCookie class=headerlink title=setCookie></a><code>setCookie</code></h3><p>Commençons par créer la fonction qui permet d’enregistrer des données dans un cookie :</p>
+<pre><code>function setCookie(cname, cvalue, exdays) &#123;
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = &quot;expires=&quot;+d.toUTCString();
+
+    // règle le pb des caractères interdits
+    if (&#39;btoa&#39; in window) &#123;
+        cvalue = btoa(cvalue);
+    &#125;
+
+    document.cookie = cname + &quot;=&quot; + cvalue + &quot;; &quot; + expires+&#39;;path=/&#39;;
+&#125;</code></pre><p>La fonction prend trois paramètres : le nom du cookie, sa valeur et le nombre de jours avant que celui-ci n’expire. Petite explication pour la partie sur les caractères interdits. <code>btoa</code> permet d’encoder une chaine de caractère en base64, cela évite les <a title="Allowed characters in cookies – Stackoverflow" href=http://stackoverflow.com/questions/1969232/allowed-characters-in-cookies>problèmes de certains navigateurs avec les caractères non Unicode [en]</a> (notamment Safari et les accents). Si la fonction est supportée dans le navigateur, on encode le contenu du cookie en base64.</p>
+<p>On créé aussi une petite fonction <code>saveCart</code> pour sauvegarder d’un coup tout notre panier :</p>
+<pre><code>function saveCart(inCartItemsNum, cartArticles) &#123;
+    setCookie(&#39;inCartItemsNum&#39;, inCartItemsNum, 5);
+    setCookie(&#39;cartArticles&#39;, JSON.stringify(cartArticles), 5);
+&#125;</code></pre><p>On ne peut stocker que des chaines de caractères dans les cookies, on sérialise donc notre tableau <code>cartArticles</code> avec <code>JSON.stringify</code> avant de l’enregistrer.</p>
+<h3 id=getCookie><a href=#getCookie class=headerlink title=getCookie></a><code>getCookie</code></h3><p>On créé ensuite la fonction pour récupérer les cookies :</p>
+<pre><code>function getCookie(cname) &#123;
+    var name = cname + &quot;=&quot;;
+    var ca = document.cookie.split(&#39;;&#39;);
+
+    for(var i = 0; i &lt; ca.length; i++) &#123;
+        var c = ca[i];
+        while (c[0] == &#39; &#39;) &#123;
+            c = c.substring(1);
+        &#125;
+
+        if (c.indexOf(name) != -1) &#123;
+            if (&#39;btoa&#39; in window) return atob(c.substring(name.length,c.length));&#125;
+            else return c.substring(name.length,c.length);
+        &#125;
+    &#125;
+
+    return false;
+&#125;</code></pre><p>Cette fonction prend en paramètre le nom du cookie et retourne sa valeur. Si <code>btoa</code> est supporté, cela veut dire qu’on a enregistré du base64 dans le cookie, on le retransforme alors en texte avec la fonction <code>atob</code>, sinon, on récupère simplement le texte non encodé.</p>
+<h2 id=Recuperer-les-articles-et-peupler-le-widget><a href=#Recuperer-les-articles-et-peupler-le-widget class=headerlink title="Récupérer les articles et peupler le widget"></a>Récupérer les articles et peupler le widget</h2><p>Nous allons commencer par le plus simple : l’initialisation des variables, la récupération des informations dans les cookies et leur affichage. Nous verrons ensuite comment ajouter de nouveaux articles au panier.</p>
+<p>Dès que nous changeons de page, nous devons récupérer tous les articles stockés dans les cookies et les placer dans le widget.</p>
+<pre><code>// variables pour stocker le nombre d&#39;articles et leurs noms
+var inCartItemsNum;
+var cartArticles;
+
+// affiche/cache les éléments du panier selon s&#39;il contient des produits
+function cartEmptyToggle() &#123;
+    if (inCartItemsNum &gt; 0) &#123;
+        $(&#39;#cart-dropdown .hidden&#39;).removeClass(&#39;hidden&#39;);
+        $(&#39;#empty-cart-msg&#39;).hide();
+    &#125;
+
+    else &#123;
+        $(&#39;#cart-dropdown .go-to-cart&#39;).addClass(&#39;hidden&#39;);
+        $(&#39;#empty-cart-msg&#39;).show();
+    &#125;
+&#125;
+
+// récupère les informations stockées dans les cookies
+inCartItemsNum = parseInt(getCookie(&#39;inCartItemsNum&#39;) ? getCookie(&#39;inCartItemsNum&#39;) : 0);
+cartArticles = getCookie(&#39;cartArticles&#39;) ? JSON.parse(getCookie(&#39;cartArticles&#39;)) : [];
+
+cartEmptyToggle();
+
+// affiche le nombre d&#39;article du panier dans le widget
+$(&#39;#in-cart-items-num&#39;).html(inCartItemsNum);
+
+// hydrate le panier
+var items = &#39;&#39;;
+cartArticles.forEach(function(v) &#123;
+   items += &#39;&lt;li id=&quot;&#39;+ v.id +&#39;&quot;&gt;&lt;a href=&quot;&#39;+ v.url +&#39;&quot;&gt;&#39;+ v.name +&#39;&lt;br&gt;&lt;small&gt;Quantité : &lt;span class=&quot;qt&quot;&gt;&#39;+ v.qt +&#39;&lt;/span&gt;&lt;/small&gt;&lt;/a&gt;&lt;/li&gt;&#39;;
+&#125;);
+
+$(&#39;#cart-dropdown&#39;).prepend(items);</code></pre><p>Aux lignes 19 et 20 on utilise des <a title="L'opérateur conditionnel – Mozilla developer network" href=https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Op%C3%A9rateurs/L_op%C3%A9rateur_conditionnel>conditions ternaires</a>. Ligne 19, si le cookie ne retourne rien (il est vide ou inexistant), on attribue 0 par défaut à la variable. De plus, on s’assure à la ligne 19 que notre valeur est bien un entier et non une chaine de caractères. À la ligne 20, si le cookie ne retourne rien, on créé un objet vide. Vous remarquerez aussi à la ligne 20 qu’on parse la valeur récupérée du cookie avec <code>JSON.parse</code>, c’est parce que nous avons encodé le tableau d’articles en json dans la fonction <code>saveCart</code>.</p>
+<p>À la ligne 30, vous notez que nous stockons d’abord nos articles dans une variable avant de les ajouter au <abbr title="Document Object Model">DOM</abbr>. On pourrait placer les éléments un par un dans le DOM en mettant <code>prepend</code> dans la boucle, mais c’est beaucoup moins performant que de le faire en une seule insertion.</p>
+<p>Vous constaterez aussi à la ligne 30 que le nom des article est un lien qui mène directement à la fiche produit. Cela permet à l’internaute de rapidement retrouver toutes les informations à propos d’un produit qu’il a mis dans son panier.</p>
+<h2 id=Ajout-d’un-article-au-panier><a href=#Ajout-d’un-article-au-panier class=headerlink title="Ajout d’un article au panier"></a>Ajout d’un article au panier</h2><p>Lorsque l’on clique sur le bouton d’ajout au panier <code>#add-to-cart</code> que nous avons mis en place plus haut, le JavaScript d’ajout s’exécute. Le code ci-dessous vient se placer à la suite du précédent :</p>
+<pre><code>[…]
+
+// click bouton ajout panier
+$(&#39;.add-to-cart&#39;).click(function() &#123;
+
+    // récupération des infos du produit
+    var $this = $(this);
+    var id = $this.attr(&#39;data-id&#39;);
+    var name = $this.attr(&#39;data-name&#39;);
+    var price = $this.attr(&#39;data-price&#39;);
+    var weight = $this.attr(&#39;data-weight&#39;);
+    var url = $this.attr(&#39;data-url&#39;);
+    var qt = parseInt($(&#39;#qt&#39;).val());
+    inCartItemsNum += qt;
+
+    // mise à jour du nombre de produit dans le widget
+    $(&#39;#in-cart-items-num&#39;).html(inCartItemsNum);
+
+    var newArticle = true;
+
+    // vérifie si l&#39;article est pas déjà dans le panier
+    cartArticles.forEach(function(v) &#123;
+        // si l&#39;article est déjà présent, on incrémente la quantité
+        if (v.id == id) &#123;
+            newArticle = false;
+            v.qt += qt;
+            $(&#39;#&#39;+ id).html(&#39;&lt;a href=&quot;&#39;+ url +&#39;&quot;&gt;&#39;+ name +&#39;&lt;br&gt;&lt;small&gt;Quantité : &lt;span class=&quot;qt&quot;&gt;&#39;+ v.qt +&#39;&lt;/span&gt;&lt;/small&gt;&lt;/a&gt;&#39;);
+        &#125;
+    &#125;);
+
+    // s&#39;il est nouveau, on l&#39;ajoute
+    if (newArticle) &#123;
+        $(&#39;#cart-dropdown&#39;).prepend(&#39;&lt;li id=&quot;&#39;+ id +&#39;&quot;&gt;&lt;a href=&quot;&#39;+ url +&#39;&quot;&gt;&#39;+ name +&#39;&lt;br&gt;&lt;small&gt;Quantité : &lt;span class=&quot;qt&quot;&gt;&#39;+ qt +&#39;&lt;/span&gt;&lt;/small&gt;&lt;/a&gt;&lt;/li&gt;&#39;);
+
+        cartArticles.push(&#123;
+            id: id,
+            name: name,
+            price: price,
+            weight: weight,
+            qt: qt,
+            url: url
+        &#125;);
+    &#125;
+
+    // sauvegarde le panier
+    saveCart(inCartItemsNum, cartArticles);
+
+    // affiche le contenu du panier si c&#39;est le premier article
+    cartEmptyToggle();
+&#125;);</code></pre><p>Les commentaires sont assez explicites, rien de spécial jusqu’à la ligne 19 si ce n’est que l’on cache <code>$(this)</code> dans une variable pour les performances. À la ligne 19, on initialise notre variable permettant de savoir si l’article est nouveau où s’il est déjà dans le panier (c’est basé sur l’id, nous en avons parlé plus haut rappelez-vous).</p>
+<p>Si l’id du produit est déjà présent dans l’array (ligne 24), c’est que l’article n’est pas nouveau, on passe donc la variable à false, on incrémente la quantité de cet article dans le tableau et on met à jour le widget. Sinon, la variable <code>newArticle</code> reste vraie, on ajoute alors l’article au widget et on fait un <code>push</code> pour ajouter le nouvel article à <code>cartArticles</code>.</p>
+<h2 id=Rendu-de-la-page-panier><a href=#Rendu-de-la-page-panier class=headerlink title="Rendu de la page panier"></a>Rendu de la page panier</h2><p>Avant d’attaquer cette partie, il est important d’avoir à l’esprit que l’ordinateur exécute ses calculs en base 2. Ainsi, chaque nombre se voit attribuer un espace mémoire fini. Cette contrainte résulte en de nombreux arrondis lors des calculs sur les nombres, lesquels peuvent impacter le résultat final… Particulièrement en JavaScript. Pour plus de détails techniques, voici une <a href=http://stackoverflow.com/a/2480864/1717735>explication assez synthétique sur StackOverflow [en]</a>.</p>
+<pre><code>// si on est sur la page ayant pour url monsite.fr/panier/
+if (window.location.pathname == &#39;/panier/&#39;) &#123;
+    var items = &#39;&#39;;
+    var subTotal = 0;
+    var total;
+    var weight = 0;
+
+    /* on parcourt notre array et on créé les lignes du tableau pour nos articles :
+    * - Le nom de l&#39;article (lien cliquable qui mène à la fiche produit)
+    * - son prix
+    * - la dernière colonne permet de modifier la quantité et de supprimer l&#39;article
+    *
+    * On met aussi à jour le sous total et le poids total de la commande
+    */
+    cartArticles.forEach(function(v) &#123;
+        // opération sur un entier pour éviter les problèmes d&#39;arrondis
+        var itemPrice = v.price.replace(&#39;,&#39;, &#39;.&#39;) * 1000;
+        items += &#39;&lt;tr data-id=&quot;&#39;+ v.id +&#39;&quot;&gt;\
+             &lt;td&gt;&lt;a href=&quot;&#39;+ v.url +&#39;&quot;&gt;&#39;+ v.name +&#39;&lt;/a&gt;&lt;/td&gt;\
+             &lt;td&gt;&#39;+ v.price +&#39;€&lt;/td&gt;\
+             &lt;td&gt;&lt;span class=&quot;qt&quot;&gt;&#39;+ v.qt +&#39;&lt;/span&gt; &lt;span class=&quot;qt-minus&quot;&gt;–&lt;/span&gt; &lt;span class=&quot;qt-plus&quot;&gt;+&lt;/span&gt; \
+             &lt;a class=&quot;delete-item&quot;&gt;Supprimer&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&#39;;
+        subTotal += v.price.replace(&#39;,&#39;, &#39;.&#39;) * v.qt;
+        weight += v.weight * v.qt;
+    &#125;);
+
+    // on reconverti notre résultat en décimal
+    subTotal = subTotal / 1000;
+
+    // On insère le contenu du tableau et le sous total
+    $(&#39;#cart-tablebody&#39;).empty().html(items);
+    $(&#39;.subtotal&#39;).html(subTotal.toFixed(2).replace(&#39;.&#39;, &#39;,&#39;));
+
+    // lorsqu&#39;on clique sur le &quot;+&quot; du panier
+    $(&#39;.qt-plus&#39;).on(&#39;click&#39;, function() &#123;
+        var $this = $(this);
+
+        // récupère la quantité actuelle et l&#39;id de l&#39;article
+        var qt = parseInt($this.prevAll(&#39;.qt&#39;).html());
+        var id = $this.parent().parent().attr(&#39;data-id&#39;);
+        var artWeight = parseInt($this.parent().parent().attr(&#39;data-weight&#39;));
+
+        // met à jour la quantité et le poids
+        inCartItemsNum += 1;
+        weight += artWeight;
+        $this.prevAll(&#39;.qt&#39;).html(qt + 1);
+        $(&#39;#in-cart-items-num&#39;).html(inCartItemsNum);
+        $(&#39;#&#39;+ id + &#39; .qt&#39;).html(qt + 1);
+
+        // met à jour cartArticles
+        cartArticles.forEach(function(v) &#123;
+            // on incrémente la qt
+            if (v.id == id) &#123;
+                v.qt += 1;
+
+                // récupération du prix
+                // on effectue tous les calculs sur des entiers
+                subTotal = ((subTotal * 1000) + (parseFloat(v.price.replace(&#39;,&#39;, &#39;.&#39;)) * 1000)) / 1000;
+            &#125;
+        &#125;);
+
+        // met à jour la quantité du widget et sauvegarde le panier
+        $(&#39;.subtotal&#39;).html(subTotal.toFixed(2).replace(&#39;.&#39;, &#39;,&#39;));
+        saveCart(inCartItemsNum, cartArticles);
+    &#125;);
+
+    // quantité -
+    $(&#39;.qt-minus&#39;).click(function() &#123;
+        var $this = $(this);
+        var qt = parseInt($this.prevAll(&#39;.qt&#39;).html());
+        var id = $this.parent().parent().attr(&#39;data-id&#39;);
+        var artWeight = parseInt($this.parent().parent().attr(&#39;data-weight&#39;));
+
+        if (qt &gt; 1) &#123;
+            // maj qt
+            inCartItemsNum -= 1;
+            weight -= artWeight;
+            $this.prevAll(&#39;.qt&#39;).html(qt - 1);
+            $(&#39;#in-cart-items-num&#39;).html(inCartItemsNum);
+            $(&#39;#&#39;+ id + &#39; .qt&#39;).html(qt - 1);
+
+            cartArticles.forEach(function(v) &#123;
+                // on décrémente la qt
+                if (v.id == id) &#123;
+                    v.qt -= 1;
+
+                    // récupération du prix
+                    // on effectue tous les calculs sur des entiers
+                    subTotal = ((subTotal * 1000) - (parseFloat(v.price.replace(&#39;,&#39;, &#39;.&#39;)) * 1000)) / 1000;
+                &#125;
+            &#125;);
+
+            $(&#39;.subtotal&#39;).html(subTotal.toFixed(2).replace(&#39;.&#39;, &#39;,&#39;));
+            saveCart(inCartItemsNum, cartArticles);
+        &#125;
+    &#125;);
+
+    // suppression d&#39;un article
+    $(&#39;.delete-item&#39;).click(function() &#123;
+        var $this = $(this);
+        var qt = parseInt($this.prevAll(&#39;.qt&#39;).html());
+        var id = $this.parent().parent().attr(&#39;data-id&#39;);
+        var artWeight = parseInt($this.parent().parent().attr(&#39;data-weight&#39;));
+        var arrayId = 0;
+        var price;
+
+        // maj qt
+        inCartItemsNum -= qt;
+        $(&#39;#in-cart-items-num&#39;).html(inCartItemsNum);
+
+        // supprime l&#39;item du DOM
+        $this.parent().parent().hide(600);
+        $(&#39;#&#39;+ id).remove();
+
+        cartArticles.forEach(function(v) &#123;
+            // on récupère l&#39;id de l&#39;article dans l&#39;array
+            if (v.id == id) &#123;
+                // on met à jour le sous total et retire l&#39;article de l&#39;array
+                // as usual, calcul sur des entiers
+                var itemPrice = v.price.replace(&#39;,&#39;, &#39;.&#39;) * 1000;
+                subTotal -= (itemPrice * qt) / 1000;
+                weight -= artWeight * qt;
+                cartArticles.splice(arrayId, 1);
+
+                return false;
+            &#125;
+
+            arrayId++;
+        &#125;);
+
+        $(&#39;.subtotal&#39;).html(subTotal.toFixed(2).replace(&#39;.&#39;, &#39;,&#39;));
+        saveCart(inCartItemsNum, cartArticles);
+        cartEmptyToggle();
+    &#125;);
+&#125;</code></pre><p>Vous remarquerez à la ligne 22 qu’on formate notre prix au format anglais (on remplace la virgule décimale par un point). Ça nous permet de le transformer en nombre et de faire des opérations dessus (ici une multiplication et une addition). On le reformate ensuite à la ligne 28 pour le rendre plus agréable aux yeux de nos chers clients. Vous noterez par ailleurs que nous veillons toujours à ce que <code>qt</code> et <code>artWeight</code> soient des nombres en récupérant leurs valeurs depuis le HTML. Nous utilisons la fonction <code>parseInt</code> pour nous en assurer – cette fonction de transtypage force la conversion des chaines de caractères en nombre et nous permet ainsi d’effectuer des opérations sur les variables.</p>
+<p>Vous vous demandez peut-être également pourquoi on maintient une variable <code>weight</code> à jour avec le poids total de la commande alors que nous n’en faisons rien. Nous allons par la suite passer cette variable à la fonction qui calcule les frais de port. Nous pourrions simplement recharger la page et récupérer de nouveau le poids total comme nous le faisons à la ligne 23.</p>
+<p>Néanmoins, sur Alphapole, j’ai décidé de rendre l’expérience la plus fluide possible. Aussi, tout le nécessaire est déjà chargé sur la page <code>/panier/</code>. Au clic sur le bouton “Passer la commande”, le JavaScript masque le tableau de commande et fait apparaître le formulaire de validation de commande (nom, prénom, adresse…), puis présente le total TTC (port inclus) avec les différentes options de paiement.</p>
+<h2 id=Calcul-des-frais-de-port><a href=#Calcul-des-frais-de-port class=headerlink title="Calcul des frais de port"></a>Calcul des frais de port</h2><p>Vous trouverez ma fonction de calcul des frais de port sur <a href=https://github.com/Buzut/computeShipping>GitHub</a>. Il suffit de l’appeler en lui passant en paramètres le poids en grammes de la commande et la zone postale de destination. La fonction renvoie alors le prix des frais de port pour l’envoi en Colissimo.</p>
+<p>Pour déterminer la zone géographique de l’adresse de l’utilisateur, j’utilise un <code>select</code> avec les différentes zones. Vous en trouverez un exemple sur le gitHub également.</p>
+<p>Le formulaire de validation de commande ne fait pas partie du panier à proprement parler, je n’expliquerai donc pas sa mise en place. J’utilise de l’ajax pour éviter tout rechargement de page et je sauvegarde les informations de l’utilisateur dans le localStorage. De cette manière, s’il revient plus tard sur le site, il n’a pas à rentrer de nouveau toutes ses informations. Par ailleurs, je trouve cela beaucoup plus ergonomique que la création obligatoire d’un compte.</p>
+<p>La création d’un compte n’est pas justifiée pour des sites sur lesquels on n’achète pas de manière régulière. D’accord pour Amazon, mais sur un e-commerce ou l’on ne se rend peut-être qu’une seule fois, voire une fois tous les six mois, l’internaute est découragé par la création préalable de celui-ci. Enfin, même dans la mesure où il en a déjà un, il y a de grande chance qu’il ait oublié son mot de passe comme il ne l’utilise que rarement.</p>
+<p>Pour la mise en place des moyens de paiement, je vous invite à lire mes articles sur la mise en place et <a href=/automatiser-son-backoffice-avec-paypal-ipn/ >l’automatisation de Paypal avec Paypal IPN</a> et <a href=/installation-de-lapi-php-615-atos-sogenactif/ >l’API ATOS</a> qu’utilisent les banques françaises (CIC, Société Générale…).</p>
+<p>N’hésitez pas à me faire part de vos retours d’expérience en commentaires. Si certains passages ne sont pas assez développés ou manquent de clarté, n’hésitez pas également.</p>
+    </article>
+
+    <section id=comments-section class=comments>
+    <h1 class=comment-infos data-slug=/realiser-un-panier-en-javascript/ >Commentaires</h1>
+    <div id=comments></div>
+
+    <h2>Rejoignez la discussion !</h2>
+
+    <form id=comments-form>
+        <label for=comment>Ce que vous voulez partager avec nous</label>
+        <textarea id=comment placeholder="Votre message" required></textarea>
+
+        <div class=notice>
+            <p>
+                Vous pouvez utiliser Markdown pour les liens [ancre de lien](url), la mise en *italique* et en **gras**.
+                Enfin pour le code, vous pouvez utiliser la syntaxe `inline` et la syntaxe bloc
+            </p>
+
+<pre>
+```
+ceci est un bloc
+de code
+```
+</pre>
+        </div>
+
+        <div class=user-info>
+            <div>
+                <label for=name>Votre prénom ou pseudo</label>
+                <input id=name name=name placeholder=Pseudo required>
+            </div>
+
+            <div>
+                <label for=email>Votre email (un email vous sera envoyé pour valider le commentaire)</label>
+                <input id=email type=email name=email placeholder=Email required>
+            </div>
+        </div>
+
+        <button class=send>Soumettre le commentaire</button><button class=cancel-edit>Annuler l'édition</button>
+    </form>
+</section>
+
+</main>
+
+        <nav class=pagination>
+    
+</nav>
+
+        <footer class=footer>
+    <p>Quentin Busuttil – Licence Creative Commons BY-NC-ND</p>
+</footer>
+
+        <div id=overlay class=overlay></div>
+    
+
